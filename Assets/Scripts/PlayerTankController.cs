@@ -38,9 +38,4 @@ public class PlayerTankController : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.fixedDeltaTime * speed_rot);
         }
     }
-
-    public void OnProjectileHitSometing(Collider other)
-    {
-
-    }
 }

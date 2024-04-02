@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    public UnityEvent<Collider> onHit;
-
     private float moveDistance;
     private Rigidbody rb;
     private Vector3 lastPosition;
@@ -44,7 +41,6 @@ public class Projectile : MonoBehaviour
         if ((ignoreLayerMask & (1 << other.gameObject.layer)) != 0)
             return;
 
-        onHit.Invoke(other);
         DestroyProjectile();
     }
 }
