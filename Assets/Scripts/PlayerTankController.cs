@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTankController : MonoBehaviour
+public class PlayerTankController : MonoBehaviour, IProjectileHitResponder
 {
-    [Header("ÀÌµ¿ ¹× È¸Àü ¼³Á¤")]
+    [Header("ì´ë™ ë° íšŒì „ ì„¤ì •")]
     [SerializeField]
     private float speed_move = 5;
     [SerializeField]
     private float speed_rot = 5;
 
-    [Header("°ø°İ ¼³Á¤")]
+    [Header("ê³µê²© ì„¤ì •")]
     [SerializeField]
     private ProjectileLauncher launcher;
 
     private float h, v;
+
+    private void Awake()
+    {
+        launcher.projectileHitResponder = this;
+    }
 
     private void Update()
     {
@@ -37,5 +42,11 @@ public class PlayerTankController : MonoBehaviour
             transform.position += dir * speed_move * Time.fixedDeltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.fixedDeltaTime * speed_rot);
         }
+    }
+
+    // ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„
+    public void OnProjectileHitSomething(Collider other)
+    {
+        Debug.LogFormat("[{0}] hit [{1}]", transform.name, other.transform.name);
     }
 }
