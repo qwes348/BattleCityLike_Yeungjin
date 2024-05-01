@@ -12,10 +12,13 @@
 
 - 투사체 발사 기능 추가
 - `InputManger.cs`의 플레이어 투사체 발사 기능 그대로 인용
+- 데미지를 받을 때 호출될 함수인 `TakeDamage()`함수 추가
+  - 지금은 데미지를 받으면 `Destroy()`실행만 함
 
 ### `Bullet.cs`
 
-- 적에게 충돌했을 시 Destroy되는 부분 추가 `(line 25)`
+- 적에게 충돌했을 시 투사체가 Destroy되는 부분 추가 `(line 25)`
+- 적의 `TakeDamage()`함수 호출하는 부분 추가
 
 ### `MapManager.cs`
 
