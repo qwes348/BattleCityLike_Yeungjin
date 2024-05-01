@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - bullet
+  - wall
+  - heart
+  - player
+  - enemy
+  - enemy_bullet
   layers:
   - Default
   - TransparentFX
@@ -11,9 +17,9 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerBody
-  - Projectile
-  - Wall
+  - 
+  - 
+  - 
   - 
   - 
   - 
