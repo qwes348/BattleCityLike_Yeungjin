@@ -24,6 +24,9 @@ public class Bullet : MonoBehaviour
         }
         else if (go_collider.tag == "enemy")
         {
+            Enemy enemy = go_collider.GetComponent<Enemy>();
+            if (enemy != null)
+                enemy.TakeDamage();
             Destroy(gameObject);
         }
     }

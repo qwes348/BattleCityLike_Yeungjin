@@ -62,4 +62,9 @@ public class Enemy : MonoBehaviour
         // 발사 방향으로 힘을 가함
         go_bullet.GetComponent<Rigidbody>().AddForce(spd_bullet * dir_bullet);
     }
+
+    public void TakeDamage()
+    {
+        Destroy(gameObject);
+    }
 }
