@@ -66,6 +66,8 @@ public class Enemy : MonoBehaviour
     public void TakeDamage()
     {
         Destroy(gameObject);
+
+        GameManager.Instance.OnEnemyDead();
     }
 
     private void OnDrawGizmosSelected()

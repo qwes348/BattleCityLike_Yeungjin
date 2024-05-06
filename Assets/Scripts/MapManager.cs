@@ -67,7 +67,7 @@ public class MapManager : MonoBehaviour
         mapsList.Add(map_00);
         mapsList.Add(map_01);
 
-        SpawnMap(1);
+        //SpawnMap(1);
     }
 
     private void Update()
