@@ -12,19 +12,20 @@ public class MapManager : MonoBehaviour
     private int[][] map_01;
     private List<int[][]> mapsList;
     private List<GameObject> spawnedMapObjects;
+    private int[][] currentMapArr;
+
+    public static MapManager Instance { get; private set; }
 
 
     private void Awake()
     {
         mapsList = new List<int[][]>();
         spawnedMapObjects = new List<GameObject>();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+        Instance = this;
+
         map_00 = new int[15][]
-        {
+{
                     //0   1   2   3   4   5   6   7   8   9   10  11  12  13  14
             new int[]{1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1}, // 0
             new int[]{1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1}, // 1
@@ -41,7 +42,7 @@ public class MapManager : MonoBehaviour
             new int[]{1,  0,  2,  0,  2,  0,  2,  2,  2,  0,  2,  0,  2,  0,  1}, // 12
             new int[]{1,  0,  0,  0,  0,  0,  2,  3,  2,  0,  0,  0,  0,  0,  1}, // 13
             new int[]{1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1}, // 14
-        };
+};
 
         map_01 = new int[][]
         {
@@ -109,7 +110,9 @@ public class MapManager : MonoBehaviour
                 go_temp.transform.position = new Vector3((j * 2) - 14, -3.5f, 14 - (i * 2));
                 spawnedMapObjects.Add(go_temp);
             }
-        }        
+        }
+
+        currentMapArr = mapArray;
     }
 
     private void DestroyMap()
@@ -121,5 +124,26 @@ public class MapManager : MonoBehaviour
         }
 
         spawnedMapObjects.Clear();
+    }
+
+    /// <summary>
+    /// ÇöÀç ¸ÊÀÇ 0À¸·Î ¼³Á¤µÈ ºó °ø°£ Áß ·£´ý ÁÂÇ¥¸¦ ¹Þ¾Æ¿È
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetRandomEmptyPoint()
+    {
+        List<Vector2> emptyCoords = new List<Vector2>();
+        for (int x = 0; x < currentMapArr.Length; x++)
+        {
+            for (int y = 0; y < currentMapArr[x].Length; y++)
+            {
+                if(currentMapArr[x][y] == 0)
+                    emptyCoords.Add(new Vector2(x, y));
+            }
+        }
+
+        Vector2 pickedCoord = emptyCoords[Random.Range(0, emptyCoords.Count)];
+        Vector3 worldPos = new Vector3((pickedCoord.y * 2) - 14, -3.5f, 14 - (pickedCoord.x * 2));
+        return worldPos;
     }
 }

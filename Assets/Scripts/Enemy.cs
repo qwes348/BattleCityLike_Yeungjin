@@ -21,31 +21,31 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        destination = agent.destination;
+        //destination = agent.destination;
+        destination = MapManager.Instance.GetRandomEmptyPoint();
+        agent.destination = destination;
         cool_current = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(destination, target.position) > 1.0f)
+        if (Vector3.Distance(destination, transform.position) < 1.0f)
         {
-            destination = target.position;
+            //destination = target.position;
+            destination = MapManager.Instance.GetRandomEmptyPoint();
             agent.destination = destination;
         }
 
-        if(Vector3.Distance(target.position, transform.position) <= agent.stoppingDistance)
+        // 미사일 발사 쿨타임 적용
+        if (cool_current <= 0)
         {
-            // 미사일 발사 쿨타임 적용
-            if (cool_current <= 0)
-            {
-                Shot();
-                cool_current = cool_bullet;
-            }
-            else
-            {
-                cool_current -= Time.deltaTime;
-            }
+            Shot();
+            cool_current = cool_bullet;
+        }
+        else
+        {
+            cool_current -= Time.deltaTime;
         }
     }
 
@@ -66,5 +66,14 @@ public class Enemy : MonoBehaviour
     public void TakeDamage()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (agent != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(agent.destination, 1.5f);
+        }
     }
 }
