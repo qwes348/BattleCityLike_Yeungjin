@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
         currentActiveEnemiesCount--;
 
-        if(currentActiveEnemiesCount <= 0)
+        if(currentActiveEnemiesCount <= 0 && EnemySpawner.Instance.currentSpawnedCount == EnemySpawner.Instance.spawnDestCount)
         {
             SetGameState(GameState.Win);
         }    
